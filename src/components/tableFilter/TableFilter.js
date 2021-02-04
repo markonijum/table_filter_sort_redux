@@ -8,7 +8,7 @@ import {
     selectMaxBalance,
     selectFilters,
     selectFailed,
-    setActiveFilters, setMaxBalance
+    setActiveFilters
 } from "./tableFilterSlice"
 
 import { selectCurrentPage , setCurrentPage} from "../tablePaginator/tablePaginatorSlice";
@@ -72,9 +72,7 @@ const TableFilter = styled(({className}) => {
 
     const handleClick = async () => {
         setSearching(true)
-        // await dispatch(setActiveFilters(inputFilters))
         if(currentPage > 1 ) {
-            // await dispatch(setCurrentPage(1))
             await navigate('/')
         }
         await dispatch(setActiveFilters(inputFilters))
@@ -145,7 +143,7 @@ const TableFilter = styled(({className}) => {
                 </select>
             </div>
             <div className="status">
-                <select className="form-select" onChange={(e) => handleFilterClick('status', e.target.value)} name="states" id="s-states">
+                <select className="form-select" onChange={(e) => handleFilterClick('isActive', e.target.value)} name="states" id="s-states">
                     <option defaultValue value={''}>Status</option>
                     <option value={true}>Active</option>
                     <option value={false}>Inactive</option>

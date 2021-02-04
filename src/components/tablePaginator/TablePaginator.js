@@ -9,7 +9,8 @@ import {
     selectCurrentPage
 } from "./tablePaginatorSlice";
 import {
-    selectSortedFilteredList
+    selectSortedFilteredList,
+    selectSortedFilteredPaginatedList
 } from "../tableList/tableListSlice";
 
 function TablePaginator(props) {
@@ -18,6 +19,7 @@ function TablePaginator(props) {
     const totalPages = useSelector(selectTotalPages)
     const offset = useSelector(selectOffset)
     const list = useSelector(selectSortedFilteredList)
+    const paginatedList = useSelector(selectSortedFilteredPaginatedList)
 
     useEffect(() => {
         dispatch(setTotalPages(list.length/offset))
@@ -32,8 +34,8 @@ function TablePaginator(props) {
         return rows
     }
     return (
-        <div className="row">
-            <div className="col">
+        <div style={{marginTop: "50px"}} className="row">
+            {paginatedList.length === 0 ? null : <div className="col">
                 <nav aria-label="Page navigation example">
                     <ul className="pagination">
                         <li className="page-item"><Link className="page-link" to={ `?page=${currentPage - 1 }&offset=${offset}` }>Previous</Link></li>
@@ -41,7 +43,7 @@ function TablePaginator(props) {
                         <li className="page-item"><Link className="page-link" to={ `?page=${currentPage + 1 }&offset=${offset}` }>Next</Link></li>
                     </ul>
                 </nav>
-            </div>
+            </div>  }
         </div>
     );
 }

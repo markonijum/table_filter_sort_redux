@@ -31,7 +31,7 @@ function TableList(props) {
     },[dispatch, queryParams])
     return (
         <div>
-            <div className="card">
+            {filteredList.length === 0 ? <h2>Nothing match search criteria</h2> :<div className="card">
                 <div className="card-body">
                     <div className="table-responsive">
                         <table className="table">
@@ -47,7 +47,7 @@ function TableList(props) {
                         </table>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }

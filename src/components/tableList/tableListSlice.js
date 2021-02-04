@@ -122,9 +122,6 @@ export const selectFilteredList = createSelector(
                         return (row[activeFilter.name] + "") === activeFilter.value
                     }
                 })
-                if(acc.length === 0){
-                   setFailed("Nothing found! Try with another search combination!")
-                }
             })
         }
         return acc
