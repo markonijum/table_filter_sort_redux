@@ -109,7 +109,9 @@ const TablePaginator = styled(TablePaginatorRaw)`
     flex-wrap:wrap;
   }
   .input-field {
-    margin-left:20px;
+    &:last-child {
+      margin-left:20px;
+    }
     width:200px;
     display: flex;
     align-items: center;
