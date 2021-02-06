@@ -69,7 +69,7 @@ function TablePaginatorRaw({className}) {
                 <form onSubmit={e => { e.preventDefault(); navigate(`/?page=${selectedPage}&offset=${offset}`)}} action="#">
                     <div className="fields-wrapper">
                         <div className="input-field">
-                        <label htmlFor="selectPage">Select Page: </label>
+                        <label htmlFor="selectPage">Go to Page: </label>
                         <input id="selectPage" name="gotopage" onChange={handleSelectPage} type="number" placeholder="Select page..." max={totalPages} value={selectedPage}/>
                     </div>
                     <div className="input-field form-group">

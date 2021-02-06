@@ -117,7 +117,9 @@ const TableFilter = styled(({className}) => {
     },[maxBalance])
 
     return (
-        <div className={className}>
+        <form onSubmit={e => e.preventDefault() } action="#">
+            <div className={className}>
+
             <div style={{minWidth:"150px"}} className="f-name input-field">
                 <input className="form-control" onChange={(e) => handleFilterClick('fullName', e.target.value)} type="text" name="full_name" placeholder="Search by name..."/>
             </div>
@@ -175,6 +177,7 @@ const TableFilter = styled(({className}) => {
             {searching && <p style={{width:"100%", margin:"30px 0"}}>Searching...</p>}
             {/*{filterMessage !== '' && <p style={{width:"100%", margin:"30px 0"}}>{filterMessage}</p>}*/}
         </div>
+</form>
     );
 })`
 display:flex;
