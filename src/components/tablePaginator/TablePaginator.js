@@ -50,7 +50,25 @@ function TablePaginatorRaw({className}) {
     return (
         <div style={{marginTop: "30px"}} className={`${className} row`}>
             {paginatedList.length === 0 ? null : <div className="col nav-wrapper">
-                <nav aria-label="Page navigation example">
+                <form onSubmit={e => { e.preventDefault(); navigate(`/?page=${selectedPage}&offset=${offset}`)}} action="#">
+                    <div className="fields-wrapper">
+                        <div className="input-field">
+                            <label htmlFor="selectPage">Go to Page: </label>
+                            <input id="selectPage" name="gotopage" onChange={handleSelectPage} type="number" placeholder="Select page..." max={totalPages} value={selectedPage}/>
+                        </div>
+                        <div className="input-field form-group">
+                            <div>Show </div>
+                            <select onChange={e => dispatch(setOffset(e.target.value))} className="form-select r_per_page" name="records_per_page" id="r_per_page">
+                                {/*<option defaultValue value={offset}>{offset}</option>*/}
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <div> records </div>
+                        </div>
+                    </div>
+                </form>
+                <nav aria-label="navigation">
 
                     { paginationList.length > 0 &&  (<ul className="pagination">
 
@@ -66,24 +84,6 @@ function TablePaginatorRaw({className}) {
                         })}
                     </ul>)}
                 </nav>
-                <form onSubmit={e => { e.preventDefault(); navigate(`/?page=${selectedPage}&offset=${offset}`)}} action="#">
-                    <div className="fields-wrapper">
-                        <div className="input-field">
-                        <label htmlFor="selectPage">Go to Page: </label>
-                        <input id="selectPage" name="gotopage" onChange={handleSelectPage} type="number" placeholder="Select page..." max={totalPages} value={selectedPage}/>
-                    </div>
-                    <div className="input-field form-group">
-                        <div>Show </div>
-                        <select onChange={e => dispatch(setOffset(e.target.value))} className="form-select r_per_page" name="records_per_page" id="r_per_page">
-                            {/*<option defaultValue value={offset}>{offset}</option>*/}
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        <div> records </div>
-                    </div>
-                    </div>
-                </form>
             </div>  }
         </div>
     );
@@ -98,19 +98,26 @@ const TablePaginator = styled(TablePaginatorRaw)`
   .r_per_page {
     margin: auto 10px;
   }
+  nav, form {
+    margin-bottom:20px;
+  }
   .nav-wrapper {
     display:flex;
     align-items: center;
-    margin-bottom:30px;
+    //margin-bottom:30px;
+    justify-content: space-between;
+    flex-wrap:wrap;
   }
   .input-field {
     margin-left:20px;
     width:200px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    margin-top:10px;
+    justify-content: flex-start;
     input {
-      width:100px;
+      width:70px;
+      margin-left:7px;
       padding:5px;
     }
   }
@@ -119,14 +126,14 @@ const TablePaginator = styled(TablePaginatorRaw)`
   }
   li {
     outline: none;
-    box-shadow: inset 0 -1px 0 #ddd;
+    //box-shadow: inset 0 -1px 0 #ddd;
   }
   a {
     outline:none;
-    box-shadow: inset 0 -1px 0 #ddd;
+    //box-shadow: inset 0 -1px 0 #ddd;
     &:focus {
       outline:none;
-      box-shadow: inset 0 -1px 0 #ddd;
+      box-shadow: none;
     }
     &.active {
       background: blue;

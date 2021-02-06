@@ -162,7 +162,7 @@ const TableFilter = styled(({className}) => {
                     max={maxBalance}
                     handleStyle={{height:"15px", width:"15px"}}
                     highlightedTrackStyle={{top:"6px"}}
-                    wrapperStyle={{height:"auto", marginBottom:"10px", width:"95%"}}
+                    wrapperStyle={{height:"auto", marginBottom:"10px", width:"100%"}}
                     trackStyle={{top:"6px"}}
                     onChange={onRangeChange}
                 />
