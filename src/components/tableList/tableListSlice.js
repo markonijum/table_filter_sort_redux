@@ -6,9 +6,7 @@ import {
     setFilters,
     setMaxBalance,
     selectActiveFilters,
-    setFailed,
     selectSortBy,
-    setSortBy
 } from "../tableFilter/tableFilterSlice"
 import { selectOffset, selectCurrentPage } from "../tablePaginator/tablePaginatorSlice";
 
@@ -67,13 +65,11 @@ export const fetchDataListAsync = () => async dispatch => {
                 })
             })
         }))
-        await dispatch(loadDataList(rows))
-        dispatch(loading())
+        dispatch(loadDataList(rows))
         const sorted_countries = countries.sort()
         const distinct_states = states.filter((state, index) => states.indexOf(state) === index).sort()
         const sorted_years = registered.sort()
         const distinct_years = sorted_years.filter((year, index) => sorted_years.indexOf(year) === index )
-        // await dispatch(loadDataList(rows))
         dispatch(setFilters([
             {
                 name: 'country',
@@ -89,7 +85,7 @@ export const fetchDataListAsync = () => async dispatch => {
             },
         ]))
         dispatch(setMaxBalance(Math.ceil(Math.max(...balances))))
-        // dispatch(loading())
+        dispatch(loading())
     }catch (err) {
         dispatch(loading())
         dispatch(failed(err.message))
@@ -103,6 +99,7 @@ export const fetchDataListAsync = () => async dispatch => {
 export const selectList = state => state.tableList.list;
 export const selectColumns = state => state.tableList.columns
 export const selectLoading = state => state.tableList.loading
+export const selectFaild = state => state.tableList.failed
 export const selectFilteredList = createSelector(
     selectList,
     selectActiveFilters,

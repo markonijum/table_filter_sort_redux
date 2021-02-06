@@ -5,6 +5,7 @@ import TableFilter from "./components/tableFilter/TableFilter"
 import './App.css';
 import TablePaginator from "./components/tablePaginator/TablePaginator";
 import { selectLoading, fetchDataListAsync } from "./components/tableList/tableListSlice";
+import ReactLoading from "react-loading"
 
 function App() {
     const loading = useSelector(selectLoading)
@@ -15,7 +16,12 @@ function App() {
   return (
     <div className="App">
         <div className="container">
-            { loading ? <h2>Loading data...</h2> : <><TableFilter />
+            <h2 style={{textAlign:"center", margin:"50px auto"}}>Table Sort and Filter Test</h2>
+            { loading ? <div className="loading-wrapper">
+                <ReactLoading type="spin" color="blue" height={100} width={100} />
+                <h3>Loading data...</h3>
+            </div> : <><TableFilter />
+                <TablePaginator />
                 <TableList />
                 <TablePaginator /></>}
         </div>

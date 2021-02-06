@@ -5,7 +5,6 @@ import { RiForbid2Line, RiCheckLine } from "react-icons/ri";
 import { useLocation } from "@reach/router"
 import {parse} from "query-string";
 import {
-    selectSortedFilteredList,
     selectSortedFilteredPaginatedList,
 } from "./tableListSlice"
 import {
@@ -22,7 +21,6 @@ function TableList(props) {
     const queryParams = parse(location.search)
     useEffect(() => {
         console.log("RENDERING TABLELIST")
-        console.log(queryParams)
         if(queryParams.page) {
             dispatch(setCurrentPage(queryParams.page))
         }else {

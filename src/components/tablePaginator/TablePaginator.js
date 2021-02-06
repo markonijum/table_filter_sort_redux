@@ -1,11 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux";
-import { Link  } from "@reach/router"
+import { Link , navigate } from "@reach/router"
 import { GrPrevious, GrNext } from "react-icons/gr";
 import {
     selectTotalPages,
     selectOffset,
+    setOffset,
     setTotalPages,
     selectPaginationList,
     selectCurrentPage,
@@ -26,15 +27,28 @@ function TablePaginatorRaw({className}) {
     const offset = useSelector(selectOffset)
     const list = useSelector(selectSortedFilteredList)
     const paginatedList = useSelector(selectSortedFilteredPaginatedList)
+    const [selectedPage, setSelectedPage] = useState(currentPage)
 
     console.log("PAGINATION LIST: ", paginationList)
 
     useEffect(() => {
         dispatch(setTotalPages(Math.ceil(list.length/offset)))
-    },[ offset , list,  dispatch ])
+        setSelectedPage(currentPage)
+    },[ offset , list,  dispatch, currentPage ])
+
+    const handleSelectPage = (e) => {
+        e.preventDefault()
+        if(Number(e.target.value) > totalPages) {
+            setSelectedPage(totalPages)
+        }else if(Number(e.target.value < 1 )) {
+            setSelectedPage(1)
+        }else {
+            setSelectedPage(e.target.value)
+        }
+    }
 
     return (
-        <div style={{marginTop: "50px"}} className={`${className} row`}>
+        <div style={{marginTop: "30px"}} className={`${className} row`}>
             {paginatedList.length === 0 ? null : <div className="col nav-wrapper">
                 <nav aria-label="Page navigation example">
 
@@ -52,15 +66,38 @@ function TablePaginatorRaw({className}) {
                         })}
                     </ul>)}
                 </nav>
-                {/*<div className="input-field">*/}
-                {/*    <label htmlFor="selectPage">Select Page: </label>*/}
-                {/*    <input id="selectPage" onChange={e => dispatch(setCurrentPage(e.target.value))} type="number" placeholder="Select page..." max={totalPages} value={currentPage}/>*/}
-                {/*</div>*/}
+                <form onSubmit={e => { e.preventDefault(); navigate(`/?page=${selectedPage}&offset=${offset}`)}} action="#">
+                    <div className="fields-wrapper">
+                        <div className="input-field">
+                        <label htmlFor="selectPage">Select Page: </label>
+                        <input id="selectPage" name="gotopage" onChange={handleSelectPage} type="number" placeholder="Select page..." max={totalPages} value={selectedPage}/>
+                    </div>
+                    <div className="input-field form-group">
+                        <div>Show </div>
+                        <select onChange={e => dispatch(setOffset(e.target.value))} className="form-select r_per_page" name="records_per_page" id="r_per_page">
+                            {/*<option defaultValue value={offset}>{offset}</option>*/}
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <div> records </div>
+                    </div>
+                    </div>
+                </form>
             </div>  }
         </div>
     );
 }
 const TablePaginator = styled(TablePaginatorRaw)`
+  .fields-wrapper {
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .r_per_page {
+    margin: auto 10px;
+  }
   .nav-wrapper {
     display:flex;
     align-items: center;

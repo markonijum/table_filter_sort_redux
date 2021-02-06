@@ -5,6 +5,7 @@ export const tableFilterSlice = createSlice({
     initialState: {
         filters: [],
         activeFilters: [],
+        searching: false,
         sortBy: {
             name: 'fullName',
             direction: "ASC"
@@ -28,16 +29,16 @@ export const tableFilterSlice = createSlice({
         setMaxBalance: (state, action) => {
             state.maxBalance = action.payload
         },
-        setFailed: (state, action) => {
-            state.failed = action.payload
-        },
         setSortBy: (state, action) => {
             state.sortBy = { name: action.payload, direction: state.sortBy.direction === "ASC" ? "DESC" : "ASC"}
+        },
+        setSearching: (state, action) => {
+            state.searching = action.payload
         }
     },
 });
 
-export const { setFilters, setActiveFilters, setSortBy, setFailed, setMaxBalance, resetFilter } = tableFilterSlice.actions;
+export const { setFilters, setActiveFilters, setSortBy, setMaxBalance, resetFilter, setSearching } = tableFilterSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -46,6 +47,6 @@ export const selectFilters = state => state.tableFilters.filters;
 export const selectActiveFilters = state => state.tableFilters.activeFilters;
 export const selectSortBy = state => state.tableFilters.sortBy
 export const selectMaxBalance = state => state.tableFilters.maxBalance
-export const selectFailed = state => state.tableFilters.failed
+export const selectSearching = state => state.tableFilters.searching
 
 export default tableFilterSlice.reducer;

@@ -7,18 +7,20 @@ import { useSelector, useDispatch} from "react-redux";
 import {
     selectMaxBalance,
     selectFilters,
-    selectFailed,
-    setActiveFilters
+    setActiveFilters,
+    selectSearching,
+    setSearching
 } from "./tableFilterSlice"
 
-import { selectCurrentPage , setCurrentPage} from "../tablePaginator/tablePaginatorSlice";
+import { selectFilteredList} from "../tableList/tableListSlice";
+
+import { selectCurrentPage } from "../tablePaginator/tablePaginatorSlice";
 
 const currencyStyle = {style: 'currency', currency: 'USD'}
 
 const TableFilter = styled(({className}) => {
     const maxBalance = useSelector(selectMaxBalance)
     const filters = useSelector(selectFilters)
-    const filterMessage = useSelector(selectFailed)
     const currentPage = useSelector(selectCurrentPage)
 
     const dispatch = useDispatch()
@@ -38,7 +40,7 @@ const TableFilter = styled(({className}) => {
             years = filter.value
         }
     })
-    const[searching, setSearching] = useState(false)
+    const searching = useSelector(selectSearching)
     const [inputFilters, setInputFilters] = useState([])
     const [balance, setBalance] = useState(
         {
@@ -71,12 +73,13 @@ const TableFilter = styled(({className}) => {
 
 
     const handleClick = async () => {
-        setSearching(true)
+        dispatch(setSearching(true))
         if(currentPage > 1 ) {
             await navigate('/')
         }
-        await dispatch(setActiveFilters(inputFilters))
-        setSearching(false)
+        dispatch(setActiveFilters(inputFilters))
+
+        dispatch(setSearching(false))
     }
 
     const onRangeChange = (value) => {
@@ -170,7 +173,7 @@ const TableFilter = styled(({className}) => {
                 <button style={{width:"100%"}} className="btn btn-primary" onClick={handleClick}>Search</button>
             </div>
             {searching && <p style={{width:"100%", margin:"30px 0"}}>Searching...</p>}
-            {filterMessage !== '' && <p style={{width:"100%", margin:"30px 0"}}>{filterMessage}</p>}
+            {/*{filterMessage !== '' && <p style={{width:"100%", margin:"30px 0"}}>{filterMessage}</p>}*/}
         </div>
     );
 })`
