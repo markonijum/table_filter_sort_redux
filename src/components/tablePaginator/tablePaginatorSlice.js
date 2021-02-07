@@ -41,7 +41,6 @@ export const selectPaginationList = createSelector(
     selectCurrentPage,
     selectNeighbours,
     (totalPages, currentPage, neighbours) =>  {
-        console.log("TOTAL PAGES: ",totalPages)
         const pagesWithoutNeighbours = (neighbours * 2) + 3
         const pagesWithNeighbours = pagesWithoutNeighbours + 2
 

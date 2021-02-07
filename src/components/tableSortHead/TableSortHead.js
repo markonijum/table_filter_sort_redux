@@ -29,7 +29,6 @@ const SortByItem = styled(({className, fieldName}) => {
     const sortBy = useSelector(selectSortBy)
     const onHandleClick = (field, e) => {
         e.preventDefault()
-        console.log("FIELD: ", field)
         dispatch(setSortBy(field))
     }
 

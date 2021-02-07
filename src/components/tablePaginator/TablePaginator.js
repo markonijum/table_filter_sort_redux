@@ -29,8 +29,6 @@ function TablePaginatorRaw({className}) {
     const paginatedList = useSelector(selectSortedFilteredPaginatedList)
     const [selectedPage, setSelectedPage] = useState(currentPage)
 
-    console.log("PAGINATION LIST: ", paginationList)
-
     useEffect(() => {
         dispatch(setTotalPages(Math.ceil(list.length/offset)))
         setSelectedPage(currentPage)

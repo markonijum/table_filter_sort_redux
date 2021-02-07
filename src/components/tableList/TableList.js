@@ -20,7 +20,6 @@ function TableList(props) {
     const location = useLocation()
     const queryParams = parse(location.search)
     useEffect(() => {
-        console.log("RENDERING TABLELIST")
         if(queryParams.page) {
             dispatch(setCurrentPage(queryParams.page))
         }else {

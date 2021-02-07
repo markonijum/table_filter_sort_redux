@@ -115,7 +115,6 @@ export const selectFilteredList = createSelector(
                             return currency(row[activeFilter.name]).subtract(activeFilter.value.start).value >= 0 &&  currency(activeFilter.value.end).subtract(row[activeFilter.name]).value >= 0
                         }
                     }else if( typeof row[activeFilter.name] === 'boolean') {
-                        console.log("Active inactive", row[activeFilter.name])
                         return (row[activeFilter.name] + "") === activeFilter.value
                     }
                 })

@@ -83,7 +83,6 @@ const TableFilter = styled(({className}) => {
     }
 
     const onRangeChange = (value) => {
-        console.log(value)
         setBalance({start: Intl.NumberFormat('en-Us', currencyStyle).format(value.start ? value.start : 0), end: Intl.NumberFormat('en-Us', currencyStyle).format(value.end ? value.end : maxBalance)})
 
         setInputFilters(prevState => {
@@ -112,7 +111,6 @@ const TableFilter = styled(({className}) => {
     }
 
     useEffect(() => {
-        console.log("RENDERING FILTER")
         setBalance(prevState =>  ({ ...prevState, end : Intl.NumberFormat('en-Us', currencyStyle).format(maxBalance) }))
     },[maxBalance])
 
