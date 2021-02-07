@@ -46,10 +46,15 @@ function TablePaginatorRaw({className}) {
         e.preventDefault();
         if(selectedPage < 1 || selectedPage === '') {
             await navigate(`/?page=1`)
+<<<<<<< HEAD
 
         }else {
             await navigate(`/?page=${selectedPage}`)
         }
+=======
+        }
+        setSelectedPage(1)
+>>>>>>> fa04c3008dcb5bfd28dcc49da0492bf1b5f5a4d3
 
     }
 
