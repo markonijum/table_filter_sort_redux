@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { RangeSlider } from 'reactrangeslider';
-import currency from 'currency.js'
 import { navigate } from "@reach/router"
 import { useSelector, useDispatch} from "react-redux";
 import {
@@ -11,8 +10,6 @@ import {
     selectSearching,
     setSearching
 } from "./tableFilterSlice"
-
-import { selectFilteredList} from "../tableList/tableListSlice";
 
 import { selectCurrentPage } from "../tablePaginator/tablePaginatorSlice";
 
@@ -173,7 +170,6 @@ const TableFilter = styled(({className}) => {
                 <button style={{width:"100%"}} className="btn btn-primary" onClick={handleClick}>Search</button>
             </div>
             {searching && <p style={{width:"100%", margin:"30px 0"}}>Searching...</p>}
-            {/*{filterMessage !== '' && <p style={{width:"100%", margin:"30px 0"}}>{filterMessage}</p>}*/}
         </div>
 </form>
     );

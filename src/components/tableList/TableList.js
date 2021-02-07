@@ -59,16 +59,6 @@ const TableRow = styled(({className, fields, number}) => {
         <td>{fields.state}</td>
         <td>{fields.country}</td>
     </tr>
-})`
-//display:flex;
-//justify-content:space-between;
-//align-item: center;
-//padding-bottom:20px;
-//border-bottom: 1px solid white;
-//font-size:13px;
-//> div {
-//  padding:10px;
-//}
-`
+})``
 
 export default TableList;

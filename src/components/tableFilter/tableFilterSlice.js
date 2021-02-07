@@ -14,10 +14,6 @@ export const tableFilterSlice = createSlice({
     },
     reducers: {
         setFilters: (state,action) => {
-            // Redux Toolkit allows us to write "mutating" logic in reducers. It
-            // doesn't actually mutate the state because it uses the Immer library,
-            // which detects changes to a "draft state" and produces a brand new
-            // immutable state based off those changes
             state.filters = action.payload;
         },
         setActiveFilters: (state, action) => {
@@ -40,9 +36,7 @@ export const tableFilterSlice = createSlice({
 
 export const { setFilters, setActiveFilters, setSortBy, setMaxBalance, resetFilter, setSearching } = tableFilterSlice.actions;
 
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state) => state.counter.value)`
+
 export const selectFilters = state => state.tableFilters.filters;
 export const selectActiveFilters = state => state.tableFilters.activeFilters;
 export const selectSortBy = state => state.tableFilters.sortBy
