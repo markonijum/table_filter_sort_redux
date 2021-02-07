@@ -46,16 +46,15 @@ function TablePaginatorRaw({className}) {
         e.preventDefault();
         if(selectedPage < 1 || selectedPage === '') {
             await navigate(`/?page=1`)
-<<<<<<< HEAD
-
         }else {
             await navigate(`/?page=${selectedPage}`)
         }
-=======
-        }
-        setSelectedPage(1)
->>>>>>> fa04c3008dcb5bfd28dcc49da0492bf1b5f5a4d3
 
+    }
+
+    const handleSelectOffset = async (e) => {
+        await navigate(`/?page=1`)
+        dispatch(setOffset(e.target.value))
     }
 
     return (
@@ -69,7 +68,7 @@ function TablePaginatorRaw({className}) {
                         </div>
                         <div className="input-field form-group">
                             <div>Show </div>
-                            <select onChange={e => dispatch(setOffset(e.target.value))} className="form-select r_per_page" name="records_per_page" id="r_per_page">
+                            <select onChange={handleSelectOffset} className="form-select r_per_page" name="records_per_page" id="r_per_page">
                                 {/*<option defaultValue value={offset}>{offset}</option>*/}
                                 <option selected={offset === '20'} value="20">20</option>
                                 <option selected={offset === '50'} value="50">50</option>
