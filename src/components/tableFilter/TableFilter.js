@@ -123,6 +123,46 @@ const TableFilter = styled(({className}) => {
             <div style={{minWidth:"150px"}} className="f-name input-field">
                 <input className="form-control" onChange={(e) => handleFilterClick('fullName', e.target.value)} type="text" name="full_name" placeholder="Search by name..."/>
             </div>
+                <div className="balance">
+                    <span>Balance range</span>
+                    <RangeSlider
+                        step={100}
+                        min={0}
+                        max={maxBalance}
+                        handleStyle={{height:"15px", width:"15px"}}
+                        highlightedTrackStyle={{top:"6px"}}
+                        wrapperStyle={{height:"auto", marginBottom:"10px", width:"100%"}}
+                        trackStyle={{top:"6px"}}
+                        onChange={onRangeChange}
+                    />
+                    <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                        <span className="start">{balance.start}</span>
+                        <span className="end">{balance.end ? balance.end : Intl.NumberFormat('en-Us', currencyStyle).format(maxBalance) }</span>
+                    </div>
+                </div>
+                <div className="status">
+                    <select className="form-select" onChange={(e) => handleFilterClick('isActive', e.target.value)} name="states" id="s-states">
+                        <option defaultValue value={''}>Status</option>
+                        <option value={true}>Active</option>
+                        <option value={false}>Inactive</option>
+                    </select>
+                </div>
+                <div className="registered">
+                    <select className="form-select" onChange={(e) => handleFilterClick('registered', e.target.value)} name="registered" id="s-registered">
+                        <option defaultValue value={''}>Registered</option>
+                        {years.map((year, index) => {
+                            return <option key={index} value={year}>{year}</option>
+                        })}
+                    </select>
+                </div>
+                <div className="state">
+                    <select className="form-select" onChange={(e) => handleFilterClick('state', e.target.value)} name="states" id="s-states">
+                        <option defaultValue value={''}>State</option>
+                        {states.map((state, index) => {
+                            return <option key={index} value={state}>{state}</option>
+                        })}
+                    </select>
+                </div>
             <div className="country">
                 <select className="form-select" onChange={(e) => handleFilterClick('country', e.target.value)} name="countries" id="s-countries">
                     <option defaultValue value={''}>Country</option>
@@ -130,46 +170,6 @@ const TableFilter = styled(({className}) => {
                         return <option key={index} value={country}>{country}</option>
                     })}
                 </select>
-            </div>
-            <div className="state">
-                <select className="form-select" onChange={(e) => handleFilterClick('state', e.target.value)} name="states" id="s-states">
-                    <option defaultValue value={''}>State</option>
-                    {states.map((state, index) => {
-                        return <option key={index} value={state}>{state}</option>
-                    })}
-                </select>
-            </div>
-            <div className="registered">
-                <select className="form-select" onChange={(e) => handleFilterClick('registered', e.target.value)} name="registered" id="s-registered">
-                    <option defaultValue value={''}>Registered</option>
-                    {years.map((year, index) => {
-                        return <option key={index} value={year}>{year}</option>
-                    })}
-                </select>
-            </div>
-            <div className="status">
-                <select className="form-select" onChange={(e) => handleFilterClick('isActive', e.target.value)} name="states" id="s-states">
-                    <option defaultValue value={''}>Status</option>
-                    <option value={true}>Active</option>
-                    <option value={false}>Inactive</option>
-                </select>
-            </div>
-            <div className="balance">
-                <span>Balance range</span>
-                <RangeSlider
-                    step={100}
-                    min={0}
-                    max={maxBalance}
-                    handleStyle={{height:"15px", width:"15px"}}
-                    highlightedTrackStyle={{top:"6px"}}
-                    wrapperStyle={{height:"auto", marginBottom:"10px", width:"100%"}}
-                    trackStyle={{top:"6px"}}
-                    onChange={onRangeChange}
-                />
-                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
-                    <span className="start">{balance.start}</span>
-                    <span className="end">{balance.end ? balance.end : Intl.NumberFormat('en-Us', currencyStyle).format(maxBalance) }</span>
-                </div>
             </div>
             <div className="search-btn">
                 <button style={{width:"100%"}} className="btn btn-primary" onClick={handleClick}>Search</button>
