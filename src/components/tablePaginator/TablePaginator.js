@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux";
 import { Link , navigate } from "@reach/router"
-import { GrPrevious, GrNext } from "react-icons/gr";
+
 import {
     selectTotalPages,
     selectOffset,
@@ -11,7 +11,6 @@ import {
     selectPaginationList,
     selectCurrentPage,
     selectNeighbours,
-    setCurrentPage
 } from "./tablePaginatorSlice";
 import {
     selectSortedFilteredList,
@@ -35,32 +34,41 @@ function TablePaginatorRaw({className}) {
     },[ offset , list,  dispatch, currentPage ])
 
     const handleSelectPage = (e) => {
+        console.log("ETARGET VALUE: ", e.target.value)
         e.preventDefault()
         if(Number(e.target.value) > totalPages) {
             setSelectedPage(totalPages)
-        }else if(Number(e.target.value < 1 )) {
-            setSelectedPage(1)
         }else {
             setSelectedPage(e.target.value)
         }
+    }
+    const handleOnSubmitSelectPage = async (e) => {
+        e.preventDefault();
+        if(selectedPage < 1 || selectedPage === '') {
+            await navigate(`/?page=1`)
+
+        }else {
+            await navigate(`/?page=${selectedPage}`)
+        }
+
     }
 
     return (
         <div style={{marginTop: "30px"}} className={`${className} row`}>
             {paginatedList.length === 0 ? null : <div className="col nav-wrapper">
-                <form onSubmit={e => { e.preventDefault(); navigate(`/?page=${selectedPage}&offset=${offset}`)}} action="#">
+                <form onSubmit={handleOnSubmitSelectPage} action="#">
                     <div className="fields-wrapper">
                         <div className="input-field">
                             <label htmlFor="selectPage">Go to Page: </label>
-                            <input id="selectPage" name="gotopage" onChange={handleSelectPage} type="number" placeholder="Select page..." max={totalPages} value={selectedPage}/>
+                            <input id="selectPage" name="gotopage" onChange={handleSelectPage} type="number" max={totalPages} value={selectedPage}/>
                         </div>
                         <div className="input-field form-group">
                             <div>Show </div>
                             <select onChange={e => dispatch(setOffset(e.target.value))} className="form-select r_per_page" name="records_per_page" id="r_per_page">
                                 {/*<option defaultValue value={offset}>{offset}</option>*/}
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
+                                <option selected={offset === '20'} value="20">20</option>
+                                <option selected={offset === '50'} value="50">50</option>
+                                <option selected={offset === '100'} value="100">100</option>
                             </select>
                             <div> records </div>
                         </div>
@@ -73,12 +81,12 @@ function TablePaginatorRaw({className}) {
                         { paginationList.map((page, index) => {
 
                             if(page === "PREV") {
-                                return <li key={index} className="page-item"><Link className="page-link" to={`?page=${currentPage - (neighbours*2) - 1}&offset=${offset}`} href="#" >&#8678;</Link></li>
+                                return <li key={index} className="page-item"><Link className="page-link" to={`?page=${currentPage - (neighbours*2) - 1}`} href="#" >&#8678;</Link></li>
                             }
                             if(page === "NEXT") {
-                                return <li key={index} className="page-item"><Link className="page-link" to={`?page=${currentPage + (neighbours*2) + 1}&offset=${offset}`} >&#8680;</Link></li>
+                                return <li key={index} className="page-item"><Link className="page-link" to={`?page=${currentPage + (neighbours*2) + 1}`} >&#8680;</Link></li>
                             }
-                            return <li key={index} className="page-item"><Link className={`page-link${ parseInt(currentPage) === page ? ' active' : ''}`} to={`?page=${page}&offset=${offset}`}>{page}</Link></li>
+                            return <li key={index} className="page-item"><Link className={`page-link${ parseInt(currentPage) === page ? ' active' : ''}`} to={`?page=${page}`}>{page}</Link></li>
                         })}
                     </ul>)}
                 </nav>
@@ -102,7 +110,6 @@ const TablePaginator = styled(TablePaginatorRaw)`
   .nav-wrapper {
     display:flex;
     align-items: center;
-    //margin-bottom:30px;
     justify-content: space-between;
     flex-wrap:wrap;
   }
@@ -126,11 +133,9 @@ const TablePaginator = styled(TablePaginatorRaw)`
   }
   li {
     outline: none;
-    //box-shadow: inset 0 -1px 0 #ddd;
   }
   a {
     outline:none;
-    //box-shadow: inset 0 -1px 0 #ddd;
     &:focus {
       outline:none;
       box-shadow: none;

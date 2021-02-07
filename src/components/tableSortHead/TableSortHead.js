@@ -15,12 +15,7 @@ const TableSortHead = styled(({className, fields}) => {
     </tr>
     </thead>
 })`
-//display:flex;
-//justify-content: space-between;
-//align-items: center;
-//flex-wrap:wrap;
   background:#0b5ed7;
-  //text-transform: uppercase;
   color:white;
 `
 
